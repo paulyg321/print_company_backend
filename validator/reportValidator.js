@@ -18,6 +18,14 @@ const isYorN = (value) => {
     return true;
 }
 
+const isOfforOn = (value) => {
+    if(value !== "OFF" || value !== "ON"){
+        return false;
+    }
+
+    return true;
+}
+
 exports.validateReportData = (request, response, next) => {
     
     request.check("inspection_type")
@@ -90,43 +98,110 @@ exports.validateReportData = (request, response, next) => {
         .notEmpty()
         .withMessage(ERROR_MESSAGES.quantityPerRollRequired)
         .isInt()
-        .withMessage(ERROR_MESSAGES.integerRequired)
+        .withMessage(ERROR_MESSAGES.integerRequired);
 
     request.check("sample_quantity")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.sampleQuantityRequired)
         .isInt()
-        .withMessage(ERROR_MESSAGES.integerRequired)
+        .withMessage(ERROR_MESSAGES.integerRequired);
 
     request.check("csp_manual_checked")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.cspManualCheckedRequired)
         .isInt()
-        .withMessage(ERROR_MESSAGES.integerRequired)
+        .withMessage(ERROR_MESSAGES.integerRequired);
 
     request.check("csp_number")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.cspNumberRequired)
         .isInt()
-        .withMessage(ERROR_MESSAGES.integerRequired)
+        .withMessage(ERROR_MESSAGES.integerRequired);
 
     request.check("csp_review")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.cspReviewRequired)
         .isInt()
-        .withMessage(ERROR_MESSAGES.integerRequired)
+        .withMessage(ERROR_MESSAGES.integerRequired);
 
     request.check("leader")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.leaderRequired)
         .isFloat()
-        .withMessage(ERROR_MESSAGES.floatRequired)
+        .withMessage(ERROR_MESSAGES.floatRequired);
     
     request.check("trailer")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.trailerRequired)
         .isFloat()
+        .withMessage(ERROR_MESSAGES.floatRequired);
+
+    request.check("core_inside_diameter")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.coreInsideDiameterRequired)
+        .isFloat()
+        .withMessage(ERROR_MESSAGES.floatRequired);
+
+    request.check("maximum_roll_diameter")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.maximumRollDiameterRequired)
+        .isFloat()
         .withMessage(ERROR_MESSAGES.floatRequired)
+
+    request.check("label_repeat_length")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.labelRepeatLengthRequired)
+        .isFloat()
+        .withMessage(ERROR_MESSAGES.floatRequired);
+
+    repeat.check("sensor_type")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.sensorTypeRequired)
+        .isLength(genericTextLength(GENERIC_MAX_TEXT_LENGTH))
+        .withMessage(ERROR_MESSAGES.need1to256characters);
+
+    repeat.check("matrix_missing_label_director")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.matrixMissingLabelDirectorRequired)
+        .custom((value) => isOfforOn(value))
+        .withMessage(ERROR_MESSAGES.isOfforOn)
+
+    repeat.check("splice_detector")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.spliceDetectorRequired)
+        .custom((value) => isOfforOn(value))
+        .withMessage(ERROR_MESSAGES.mustBeOfforOn)
+
+    repeat.check("barcode_detector")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.barcodeDetectorRequired)
+        .custom((value) => isOfforOn(value))
+        .withMessage(ERROR_MESSAGES.mustBeOfforOn)
+
+    request.check("inkjet_printer")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.inkjetPrinterRequired)
+        .custom((value) => isOfforOn(value))
+        withMessage(ERROR_MESSAGES.mustBeOfforOn)
+
+    request.check("avt_camero_on")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.avtCameroOnRequired)
+        .custom((value) => isYorN(value))
+        .withMessage(ERROR_MESSAGES.mustBeYorN);
+    
+    request.check("challenge_complete")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.challengeCompleteRequired)
+        .custom((value) => isYorN(value))
+        .withMessage(ERROR_MESSAGES.mustBeYorN);
+
+    request.check("core_labels_verified")
+        .notEmpty()
+        .withMessage(ERROR_MESSAGES.coreLabelsVerifiedRequired)
+        .custom((value) => isYorN(value))
+        .withMessage(ERROR_MESSAGES.mustBeYorN)
+
 
     
     // TODO: ADD CHECKS FOR THE REST OF THE DATA (AFTER TRAILER)

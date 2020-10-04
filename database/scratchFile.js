@@ -1,0 +1,33 @@
+// insertJobReport reportData variable
+
+// const {
+        //     inspection_type,
+        //     previous_order_purged,
+        //     previous_order_number,
+        //     proof_available,
+        //     overlay_verified_to_label,
+        //     customer_name,
+        //     item_description,
+        //     item_number,
+        //     msf_number,
+        //     quantity_ordered,
+        //     unwind_direction,
+        //     quantity_per_roll,
+        //     sample_quantity,
+        //     csp_manual_checked,
+        //     csp_number,
+        //     csp_review,
+        //     leader,
+        //     trailer,
+        //     core_inside_diameter,
+        //     maximum_roll_diameter,
+        //     label_repeat_length,
+        //     sensor_type,
+        //     matrix_missing_label_director,
+        //     splice_detector,
+        //     barcode_detector,
+        //     inkjet_printer,
+        //     avt_camero_on,
+        //     challenge_complete,
+        //     core_labels_verified
+        // } = reportData

@@ -10,7 +10,8 @@
 exports.ERROR_MESSAGES = {
     
     // GENERIC
-    mustBeYorN: "Accepted values (Y or N)",
+    mustBeYorN: "Accepted values (YES or NO)",
+    mustBeOfforOn: "Accepted values (OFF or ON)",
     integerRequired: "Please Enter An Integer Value",
     floatRequired: "Please Enter A Float Value",
     need1to256characters: "Only 1 - 256 characters allowed",

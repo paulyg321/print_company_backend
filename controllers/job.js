@@ -4,7 +4,7 @@ exports.getJobData = (request, response) => {
 
     const info = jobInfo.getjobInfoInstance();
 
-    const jobNumber = request.query.jobId;
+    const jobNumber = request.query.jobNumber;
 
     info.getJobData(jobNumber).then((data) => {
         response.json({

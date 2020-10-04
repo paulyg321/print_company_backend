@@ -11,7 +11,7 @@ const genericTextLength = (maxLength) => {
 }
 
 const isYesOrNo = (value) => {
-    if(value !== 'YES' || value !== 'NO'){
+    if(value !== 'YES' && value !== 'NO'){
         return false;
     }
 
@@ -19,7 +19,7 @@ const isYesOrNo = (value) => {
 }
 
 const isOfforOn = (value) => {
-    if(value !== "OFF" || value !== "ON"){
+    if(value !== "OFF" && value !== "ON"){
         return false;
     }
 
@@ -38,7 +38,7 @@ exports.validateReportData = (request, response, next) => {
         .notEmpty()
         .withMessage(ERROR_MESSAGES.previousOrderPurgedRequired)
         .custom((value) => isYesOrNo(value))
-        .withMessage(ERROR_MESSAGES.mustBeYorN);
+        .withMessage(`previous_order_purged ${ERROR_MESSAGES.mustBeYorN}`);
 
     request.check("previous_order_number")
         .notEmpty()
@@ -50,13 +50,13 @@ exports.validateReportData = (request, response, next) => {
         .notEmpty()
         .withMessage(ERROR_MESSAGES.proofAvailableRequired)
         .custom((value) => isYesOrNo(value))
-        .withMessage(ERROR_MESSAGES.mustBeYorN);
+        .withMessage(`proof_available ${ERROR_MESSAGES.mustBeYorN}`);
 
     request.check("overlay_verified_to_label")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.overlayVerifiedToLabelRequired)
         .custom((value) => isYesOrNo(value))
-        .withMessage(ERROR_MESSAGES.mustBeYorN);
+        .withMessage(`overlay_verified_to_label ${ERROR_MESSAGES.mustBeYorN}`);
 
     request.check("customer_name")
         .notEmpty()
@@ -154,25 +154,25 @@ exports.validateReportData = (request, response, next) => {
         .isFloat()
         .withMessage(ERROR_MESSAGES.floatRequired);
 
-    repeat.check("sensor_type")
+    request.check("sensor_type")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.sensorTypeRequired)
         .isLength(genericTextLength(GENERIC_MAX_TEXT_LENGTH))
         .withMessage(ERROR_MESSAGES.need1to256characters);
 
-    repeat.check("matrix_missing_label_director")
+    request.check("matrix_missing_label_director")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.matrixMissingLabelDirectorRequired)
         .custom((value) => isOfforOn(value))
         .withMessage(ERROR_MESSAGES.isOfforOn)
 
-    repeat.check("splice_detector")
+    request.check("splice_detector")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.spliceDetectorRequired)
         .custom((value) => isOfforOn(value))
         .withMessage(ERROR_MESSAGES.mustBeOfforOn)
 
-    repeat.check("barcode_detector")
+    request.check("barcode_detector")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.barcodeDetectorRequired)
         .custom((value) => isOfforOn(value))
@@ -182,25 +182,25 @@ exports.validateReportData = (request, response, next) => {
         .notEmpty()
         .withMessage(ERROR_MESSAGES.inkjetPrinterRequired)
         .custom((value) => isOfforOn(value))
-        withMessage(ERROR_MESSAGES.mustBeOfforOn)
+        .withMessage(ERROR_MESSAGES.mustBeOfforOn)
 
     request.check("avt_camero_on")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.avtCameroOnRequired)
         .custom((value) => isYesOrNo(value))
-        .withMessage(ERROR_MESSAGES.mustBeYorN);
+        .withMessage(`avt_camero_on ${ERROR_MESSAGES.mustBeYorN}`);
     
     request.check("challenge_complete")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.challengeCompleteRequired)
         .custom((value) => isYesOrNo(value))
-        .withMessage(ERROR_MESSAGES.mustBeYorN);
+        .withMessage(`challenge_complete ${ERROR_MESSAGES.mustBeYorN}`);
 
     request.check("core_labels_verified")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.coreLabelsVerifiedRequired)
         .custom((value) => isYesOrNo(value))
-        .withMessage(ERROR_MESSAGES.mustBeYorN)
+        .withMessage(`core_labels_verified ${ERROR_MESSAGES.mustBeYorN}`)
 
 
     

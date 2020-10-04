@@ -10,8 +10,8 @@ const genericTextLength = (maxLength) => {
     }
 }
 
-const isYorN = (value) => {
-    if(value !== 'Y' || value !== 'N'){
+const isYesOrNo = (value) => {
+    if(value !== 'YES' || value !== 'NO'){
         return false;
     }
 
@@ -37,7 +37,7 @@ exports.validateReportData = (request, response, next) => {
     request.check("previous_order_purged")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.previousOrderPurgedRequired)
-        .custom((value) => isYorN(value))
+        .custom((value) => isYesOrNo(value))
         .withMessage(ERROR_MESSAGES.mustBeYorN);
 
     request.check("previous_order_number")
@@ -49,13 +49,13 @@ exports.validateReportData = (request, response, next) => {
     request.check("proof_available")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.proofAvailableRequired)
-        .custom((value) => isYorN(value))
+        .custom((value) => isYesOrNo(value))
         .withMessage(ERROR_MESSAGES.mustBeYorN);
 
     request.check("overlay_verified_to_label")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.overlayVerifiedToLabelRequired)
-        .custom((value) => isYorN(value))
+        .custom((value) => isYesOrNo(value))
         .withMessage(ERROR_MESSAGES.mustBeYorN);
 
     request.check("customer_name")
@@ -187,19 +187,19 @@ exports.validateReportData = (request, response, next) => {
     request.check("avt_camero_on")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.avtCameroOnRequired)
-        .custom((value) => isYorN(value))
+        .custom((value) => isYesOrNo(value))
         .withMessage(ERROR_MESSAGES.mustBeYorN);
     
     request.check("challenge_complete")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.challengeCompleteRequired)
-        .custom((value) => isYorN(value))
+        .custom((value) => isYesOrNo(value))
         .withMessage(ERROR_MESSAGES.mustBeYorN);
 
     request.check("core_labels_verified")
         .notEmpty()
         .withMessage(ERROR_MESSAGES.coreLabelsVerifiedRequired)
-        .custom((value) => isYorN(value))
+        .custom((value) => isYesOrNo(value))
         .withMessage(ERROR_MESSAGES.mustBeYorN)
 
 

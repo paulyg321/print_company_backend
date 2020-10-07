@@ -1,3 +1,4 @@
+const { getJobReportInstance } = require('../database/jobReportService');
 const jobReport = require('../database/jobReportService');
 
 exports.submitReport = (request, response) => {
@@ -14,11 +15,11 @@ exports.submitReport = (request, response) => {
 }
 
 exports.editReport = (request, response) => {
-    // const {id, ...rest} = request.body;
+    const {id, ...rest} = request.body;
 
     const report = jobReport.getJobReportInstance();
 
-    report.editJobReport().then((data) => {
+    report.editJobReport(rest, id).then((data) => {
         response.json({
             itemId: data
         })
@@ -26,4 +27,37 @@ exports.editReport = (request, response) => {
 
 }
 
+exports.getAllReports = (request, response) => {
+    const reports = jobReport.getJobReportInstance();
 
+    reports.getAllReports().then((data) => {
+        response.json({
+            reports: data
+        })
+    })
+}
+
+
+exports.getSpecificReport = (request, response) => {
+    const id = request.params.reportId;
+
+    const report = jobReport.getJobReportInstance();
+
+    report.getSpecificReport(id).then((data) => {
+        response.json({
+            report: data
+        })
+    })
+}
+
+exports.deleteSpecificReport = (request, response) => {
+    const id = request.params.reportId;
+
+    const report = jobReport.getJobReportInstance();
+
+    report.deleteSpecificReport(id).then((data) => {
+        response.json({
+            reportId: data
+        })
+    })
+}

@@ -1,3 +1,4 @@
+const { request, response } = require('express');
 const jobInfo = require('../database/jobInfoService');
 
 exports.getJobData = (request, response) => {
@@ -26,4 +27,14 @@ exports.searchJobData = (request, response) => {
         })
     })
 
+}
+
+exports.getAllJobData = (request, response) => {
+    const info = jobInfo.getjobInfoInstance();
+
+    info.getAllJobData().then((data) => {
+        response.json({
+            data: data
+        });
+    })
 }

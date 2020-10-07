@@ -105,9 +105,6 @@ class JobReport {
     }
 
     async editJobReport(reportData, id) {
-        const columns = {
-            previous_order_number: 303
-        }
 
         const where = {
             id
@@ -120,9 +117,7 @@ class JobReport {
                 connection.query(query, [reportData, where], (err, results) => {
                     if(err){
                         reject(new Error(err.message));
-                    }
-        
-                    console.log(results);
+                    }            
         
                     resolve(results.insertId);
                 });
@@ -134,6 +129,67 @@ class JobReport {
         }
     }
 
+    async getAllReports(){
+        const query = "SELECT * from job_report";
+
+        try {
+            const response = new Promise((resolve, reject) => {
+                connection.query(query, (err, results) => {
+                    if(err){
+                        reject(new Error(err.message));
+                    }            
+        
+                    resolve(results);
+                });
+            })
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    async getSpecificReport(id){
+        const query = "SELECT * from job_report WHERE id=?";
+
+        try {
+            const response = new Promise((resolve, reject) => {
+                connection.query(query, [id],(err, results) => {
+                    if(err){
+                        reject(new Error(err.message));
+                    }            
+        
+                    resolve(results[0]);
+                });
+            })
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    async deleteSpecificReport(id){
+        const query = "DELETE FROM job_report WHERE id=?";
+
+        try {
+            const response = new Promise((resolve, reject) => {
+                connection.query(query, [id],(err, results) => {
+                    if(err){
+                        reject(new Error(err.message));
+                    }            
+        
+                    resolve(results.insertId);
+                });
+            })
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 }
 

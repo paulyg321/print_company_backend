@@ -30,6 +30,26 @@ class JobInfo {
         }
     }
 
+    async searchJobData(requestedJobNumber) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT * FROM job_info WHERE job_number LIKE ?";
+
+                connection.query(query, [`%${requestedJobNumber}%`], (err, results) => {
+                    if(err){
+                        reject(new Error(err.message));
+                    }
+
+                    resolve(results);
+                });
+            })
+
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 module.exports = JobInfo;

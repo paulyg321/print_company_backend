@@ -13,3 +13,17 @@ exports.getJobData = (request, response) => {
     })
     
 }
+
+exports.searchJobData = (request, response) => {
+
+    const info = jobInfo.getjobInfoInstance();
+
+    const jobNumber = request.query.jobNumber;
+
+    info.searchJobData(jobNumber).then((data) => {
+        response.json({
+            data: data
+        })
+    })
+
+}
